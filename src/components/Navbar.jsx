@@ -32,8 +32,12 @@ const Navbar = () => {
             : 'w-full max-w-7xl bg-transparent'}
         `}>
           <a href="#" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-black text-white flex items-center justify-center font-bold text-lg rounded-full shadow-md group-hover:scale-105 transition-transform duration-300">
-              N
+            <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 shadow-sm group-hover:scale-105 transition-transform duration-300 bg-gray-100">
+              <img 
+                src="https://github.com/siddhant-2002.png" 
+                alt="profile image" 
+                className="w-full h-full object-cover"
+              />
             </div>
             <span className={`text-lg font-bold tracking-tight transition-colors ${scrolled ? 'text-black' : 'text-black'}`}>
               npm-portfolio

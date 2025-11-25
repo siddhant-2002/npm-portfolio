@@ -8,12 +8,10 @@ import {
   Coffee, 
   Github, 
   Linkedin, 
-  Mail, 
   Terminal, 
   Database, 
   Layout, 
-  ArrowUpRight,
-  Sparkles
+  ArrowUpRight
 } from 'lucide-react';
 
 const About = () => {
@@ -169,45 +167,50 @@ const About = () => {
             viewport={{ once: true }}
             className="lg:col-span-2 space-y-4"
           >
-            {/* Main Bio Card */}
+            {/* Profile Strip */}
             <motion.div 
               variants={itemVariants}
-              className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative overflow-hidden group hover:shadow-lg transition-all duration-500 h-full flex flex-col"
+              className="bg-black rounded-2xl p-4 border border-gray-800 relative overflow-hidden group flex items-center"
             >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-100/50 to-purple-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-700" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
               
-              <div className="relative z-10 flex-grow flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center space-x-2 mb-4">
-                    <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
-                      <Sparkles size={14} className="text-yellow-500" />
-                    </div>
-                    <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Who I am</span>
+              <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 text-center md:text-left w-full">
+                <div className="relative shrink-0">
+                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-blue-500/30 shadow-lg shadow-blue-500/10">
+                    <img 
+                      src="hero.png" 
+                      alt="Siddhant" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  
-                  <h3 className="text-2xl md:text-3xl font-bold text-black mb-4 font-display leading-tight">
-                    Building digital experiences with <span className="text-blue-600">purpose</span> and <span className="text-purple-600">precision</span>.
-                  </h3>
-                  
-                  <p className="text-gray-600 leading-relaxed text-base mb-6 max-w-2xl">
-                    I'm Siddhant, a Full Stack Developer passionate about crafting accessible, pixel-perfect user interfaces that blend form and function. I thrive on turning complex problems into simple, beautiful solutions.
-                  </p>
                 </div>
                 
+                <div>
+                  <p className="text-sm md:text-lg text-gray-300 font-light leading-relaxed font-display">
+                    Hi, I'm <span className="text-blue-400 font-semibold">Siddhant</span> — a full stack developer building robust, scalable web apps.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
 
-                <div className="flex flex-wrap gap-2">
-                  <div className="px-3 py-1.5 bg-white rounded-full border border-gray-200 text-xs font-medium text-gray-700 shadow-sm">
-                    🚀 Full Stack
-                  </div>
-                  <div className="px-3 py-1.5 bg-white rounded-full border border-gray-200 text-xs font-medium text-gray-700 shadow-sm">
-                    🎨 UI/UX Enthusiast
-                  </div>
-                  <div className="px-3 py-1.5 bg-white rounded-full border border-gray-200 text-xs font-medium text-gray-700 shadow-sm">
-                    ⚡ Performance
-                  </div>
-                  <div className="px-3 py-1.5 bg-white rounded-full border border-gray-200 text-xs font-medium text-gray-700 shadow-sm">
-                    🔍 SEO Optimized
-                  </div>
+            {/* Detailed About Box */}
+            <motion.div 
+              variants={itemVariants}
+              className="bg-gray-50 rounded-2xl p-4 md:p-6 border border-gray-100 relative overflow-hidden group"
+            >
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold text-black mb-4 font-display flex items-center gap-2">
+                  <span className="w-2 h-8 bg-blue-500 rounded-full inline-block"></span>
+                  Software Engineer • Web Architect
+                </h3>
+                
+                <div className="space-y-4 text-gray-600 leading-relaxed text-base">
+                  <p>
+                    I'm a passionate Software Engineer who loves exploring, building, and problem-solving. With experience across full-stack development, I've created projects that are both impactful and innovative, ranging from web platforms to dashboards and interactive applications. My expertise spans React, Node.js, and building scalable web solutions, and I enjoy crafting clean, efficient, and maintainable code.
+                  </p>
+                  <p>
+                    Beyond coding, I'm curious and driven—always exploring new ideas, learning cutting-edge technologies, and taking on challenges that push me to grow. From experimenting with new design patterns to building full-stack projects and optimizing user experiences, I thrive in environments where I can innovate and make a real impact. Collaboration, continuous learning, and creating meaningful products are at the heart of how I work.
+                  </p>
                 </div>
               </div>
             </motion.div>
