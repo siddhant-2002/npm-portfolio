@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import About from './components/About';
 import PackageCard from './components/PackageCard';
 import PackageDetail from './components/PackageDetail';
 import Footer from './components/Footer';
@@ -92,6 +93,9 @@ function App() {
       <main>
         {/* Hero Section */}
         <Hero />
+        
+        {/* About Section */}
+        <About />
         
         {/* Packages Section */}
         <section id="packages" className="min-h-screen w-full bg-white py-24 px-6 flex flex-col justify-center relative overflow-hidden">
