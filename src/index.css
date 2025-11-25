@@ -42,7 +42,8 @@ h6 {
 
 /* Modern Scrollbar */
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
+    height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -51,10 +52,34 @@ h6 {
 
 ::-webkit-scrollbar-thumb {
     background: #d4d4d8;
-    border-radius: 10px;
+    border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
+    background: #a1a1aa;
+}
+
+/* Thin scrollbar for specific components */
+.thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #d4d4d8 transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+    border-radius: 2px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #a1a1aa;
 }
 

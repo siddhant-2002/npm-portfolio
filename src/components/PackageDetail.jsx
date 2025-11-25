@@ -19,6 +19,7 @@ import {
   Users,
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const PackageDetail = ({ pkg, onClose }) => {
   const [copied, setCopied] = useState(false);
@@ -50,12 +51,26 @@ const PackageDetail = ({ pkg, onClose }) => {
     { icon: Calendar, label: 'Updated', value: pkg.lastPublish ? new Date(pkg.lastPublish).toLocaleDateString() : 'Recent', color: 'orange' },
   ];
 
+  // Markdown component overrides to render tables and links with Tailwind styles
+  const mdComponents = {
+    table: ({ node, ...props }) => (
+      <div className="w-full overflow-auto my-4">
+        <table {...props} className="min-w-full text-sm sm:text-base table-auto" />
+      </div>
+    ),
+    thead: ({ node, ...props }) => <thead {...props} className="bg-gray-50" />,
+    th: ({ node, ...props }) => <th {...props} className="px-3 py-2 text-left font-semibold text-gray-900 border-b border-gray-200" />,
+    td: ({ node, ...props }) => <td {...props} className="px-3 py-2 border-b border-gray-100 text-gray-700" />,
+    tr: ({ node, ...props }) => <tr {...props} className="last:border-b-0" />,
+    a: ({ node, ...props }) => <a {...props} className="text-blue-600 hover:underline" />,
+  };
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4"
       onClick={onClose}
     >
       <motion.div
@@ -63,63 +78,63 @@ const PackageDetail = ({ pkg, onClose }) => {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-6xl h-[90vh] bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden flex flex-col ring-1 ring-white/20 relative"
+        className="w-full max-w-6xl h-[95vh] sm:h-[90vh] bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col ring-1 ring-white/20 relative"
       >
         {/* Header Card */}
-        <div className="relative bg-gradient-to-b from-gray-50/80 to-white/80 border-b border-gray-100 p-8 shrink-0 overflow-hidden">
+        <div className="relative bg-gradient-to-b from-gray-50/80 to-white/80 border-b border-gray-100 p-4 sm:p-6 lg:p-8 shrink-0 overflow-hidden">
           {/* Background Pattern & Effects */}
           <div className="absolute inset-0 bg-dot-pattern opacity-50 pointer-events-none" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-linear-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
           
           {/* Close Button */}
           <button 
             onClick={onClose}
-            className="absolute top-6 right-6 z-20 p-2 hover:bg-black/5 rounded-full transition-all duration-200 text-gray-400 hover:text-gray-900 backdrop-blur-sm"
+            className="absolute top-3 right-3 sm:top-6 sm:right-6 z-20 p-2 hover:bg-black/5 rounded-full transition-all duration-200 text-gray-400 hover:text-gray-900 backdrop-blur-sm"
           >
             <X size={20} />
           </button>
 
-          <div className="relative z-10 flex flex-col gap-8">
+          <div className="relative z-10 flex flex-col gap-4 sm:gap-6 lg:gap-8">
             {/* Top Section: Info & Stats Grid */}
-            <div className="flex flex-col lg:flex-row gap-8 items-start justify-between pr-12">
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8 items-start justify-between pr-8 sm:pr-12">
               {/* Left: Icon + Info */}
-              <div className="flex items-start gap-5 flex-1 min-w-0">
+              <div className="flex items-start gap-3 sm:gap-5 flex-1 min-w-0">
                 <div className="relative shrink-0">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl blur-lg opacity-40 translate-y-2" />
-                  <div className="relative w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl ring-4 ring-white">
-                    <Package size={32} className="text-white" />
+                  <div className="relative w-12 h-12 sm:w-16 sm:h-16 bg-linear-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl ring-4 ring-white">
+                    <Package size={24} className="text-white sm:w-8 sm:h-8" />
                   </div>
                 </div>
                 <div className="flex flex-col min-w-0 pt-1">
-                  <h1 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight mb-2 font-display truncate">{pkg.name}</h1>
-                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 max-w-xl">{pkg.description}</p>
+                  <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 tracking-tight mb-2 font-display truncate">{pkg.name}</h1>
+                  <p className="text-gray-600 leading-relaxed line-clamp-2 sm:line-clamp-3 max-w-xl text-sm">{pkg.description}</p>
                   
-                  <div className="mt-4 flex flex-col sm:flex-row items-center gap-3 w-full max-w-xl">
-                    <div className="flex-1 flex items-center gap-3 bg-gray-900 rounded-xl px-4 py-3 shadow-xl shadow-gray-200/50 group cursor-pointer transition-transform active:scale-[0.99] hover:shadow-2xl hover:shadow-gray-900/20 w-full" onClick={copyCommand}>
-                      <Terminal size={16} className="text-gray-400 shrink-0" />
+                  <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full max-w-xl">
+                    <div className="flex-1 flex items-center gap-2 sm:gap-3 bg-gray-900 rounded-xl px-3 sm:px-4 py-2 sm:py-3 shadow-xl shadow-gray-200/50 group cursor-pointer transition-transform active:scale-[0.99] hover:shadow-2xl hover:shadow-gray-900/20 w-full" onClick={copyCommand}>
+                      <Terminal size={14} className="text-gray-400 shrink-0" />
                       <code className="font-mono text-xs text-gray-100 truncate flex-1">npm i {pkg.name}</code>
-                      <div className="w-px h-3 bg-gray-700 mx-2 shrink-0"></div>
-                      {copied ? <Check className="text-green-400 shrink-0" size={14} /> : <Copy className="text-gray-400 group-hover:text-white transition-colors shrink-0" size={14} />}
+                      <div className="w-px h-3 bg-gray-700 mx-1 sm:mx-2 shrink-0"></div>
+                      {copied ? <Check className="text-green-400 shrink-0" size={12} /> : <Copy className="text-gray-400 group-hover:text-white transition-colors shrink-0" size={12} />}
                     </div>
                     
-                    <div className="flex gap-2 shrink-0">
+                    <div className="flex gap-1 sm:gap-2 shrink-0">
                       <a 
                         href={pkg.npmLink}
                         target="_blank"
                         rel="noreferrer"
-                        className="w-12 h-11 flex items-center justify-center bg-white border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
+                        className="w-10 h-9 sm:w-12 sm:h-11 flex items-center justify-center bg-white border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
                         title="View on NPM"
                       >
-                        <Box size={20} />
+                        <Box size={16} />
                       </a>
                       <a 
                         href={pkg.githubLink}
                         target="_blank"
                         rel="noreferrer"
-                        className="w-12 h-11 flex items-center justify-center bg-[#24292e] text-white rounded-xl hover:bg-[#2f363d] transition-all shadow-lg shadow-gray-200/50 hover:shadow-xl hover:-translate-y-0.5"
+                        className="w-10 h-9 sm:w-12 sm:h-11 flex items-center justify-center bg-[#24292e] text-white rounded-xl hover:bg-[#2f363d] transition-all shadow-lg shadow-gray-200/50 hover:shadow-xl hover:-translate-y-0.5"
                         title="View on GitHub"
                       >
-                        <Github size={20} />
+                        <Github size={16} />
                       </a>
                     </div>
                   </div>
@@ -127,17 +142,19 @@ const PackageDetail = ({ pkg, onClose }) => {
               </div>
               
 
-              {/* Right: 2x2 Stats Grid */}
-              <div className="grid grid-cols-2 gap-3 shrink-0 w-full lg:w-auto">
+              {/* Right: Stats Grid */}
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 shrink-0 w-full lg:w-auto">
                 {stats.map((stat, idx) => (
-                  <div key={idx} className="flex flex-col justify-center p-3 bg-white/60 backdrop-blur-md rounded-xl border border-white/50 shadow-sm hover:shadow-md transition-all duration-200 min-w-[100px]">
-                    <div className="flex items-center gap-2 mb-1">
+                  <div key={idx} className={`flex flex-col justify-center p-2 sm:p-3 bg-white/60 backdrop-blur-md rounded-xl border border-white/50 shadow-sm hover:shadow-md transition-all duration-200 min-w-20 sm:min-w-24 ${
+                    idx >= 2 ? 'hidden lg:flex' : ''
+                  }`}>
+                    <div className="flex items-center gap-1 sm:gap-2 mb-1">
                       <div className={`text-${stat.color}-600`}>
-                        <stat.icon size={14} />
+                        <stat.icon size={12} />
                       </div>
-                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{stat.label}</span>
+                      <span className="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-wider">{stat.label}</span>
                     </div>
-                    <div className="text-sm font-bold text-gray-900 pl-0.5">{stat.value}</div>
+                    <div className="text-xs sm:text-sm font-bold text-gray-900 pl-0.5">{stat.value}</div>
                   </div>
                 ))}
               </div>
@@ -147,22 +164,22 @@ const PackageDetail = ({ pkg, onClose }) => {
         {/* Tabs */}
         {/* Tabs */}
         {/* Tabs */}
-        <div className="bg-white/50 backdrop-blur-sm border-b border-gray-100 px-8 sticky top-0 z-20">
-          <div className="flex gap-8">
+        <div className="bg-white/50 backdrop-blur-sm border-b border-gray-100 px-4 sm:px-6 lg:px-8 sticky top-0 z-20">
+          <div className="flex gap-4 sm:gap-6 lg:gap-8 overflow-x-auto thin-scrollbar">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative flex items-center gap-2.5 py-5 font-medium text-sm transition-all duration-300 ${
+                className={`relative flex items-center gap-2 sm:gap-2.5 py-4 sm:py-5 font-medium text-sm transition-all duration-300 whitespace-nowrap ${
                   activeTab === tab.id
                     ? 'text-blue-600'
                     : 'text-gray-500 hover:text-gray-900'
                 }`}
               >
-                <tab.icon size={18} className={activeTab === tab.id ? 'stroke-[2.5px]' : ''} />
+                <tab.icon size={16} className={activeTab === tab.id ? 'stroke-[2.5px]' : ''} />
                 <span className={activeTab === tab.id ? 'font-bold' : ''}>{tab.label}</span>
                 {tab.count !== undefined && (
-                  <span className={`ml-0.5 px-2 py-0.5 text-[10px] font-bold rounded-full transition-colors ${
+                  <span className={`ml-0.5 px-1.5 sm:px-2 py-0.5 text-[10px] font-bold rounded-full transition-colors ${
                     activeTab === tab.id ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500'
                   }`}>
                     {tab.count}
@@ -180,8 +197,8 @@ const PackageDetail = ({ pkg, onClose }) => {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6">
-          <div className="max-w-6xl mx-auto">
+        <div className="flex-1 overflow-y-auto thin-scrollbar p-4 sm:p-6">
+          <div className="max-w-none">
             <AnimatePresence mode="wait">
               {activeTab === 'readme' && (
                 <motion.div
@@ -191,12 +208,19 @@ const PackageDetail = ({ pkg, onClose }) => {
                   exit={{ opacity: 0, y: -10 }}
                   className="bg-white/80 backdrop-blur-md rounded-3xl border border-white/60 p-8 md:p-12 shadow-xl shadow-gray-200/40 ring-1 ring-white/60 relative overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-linear-to-br from-white/40 to-transparent pointer-events-none" />
                   <div className="relative prose prose-base prose-slate max-w-none
                     prose-headings:font-display prose-headings:font-bold prose-headings:text-gray-900 prose-headings:tracking-tight
                     prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg
                     prose-p:text-gray-600 prose-p:leading-relaxed prose-p:text-sm
                     prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
+                    
+                    /* Tables */
+                    prose-table:border-collapse prose-table:w-full prose-table:text-sm
+                    prose-thead:bg-gray-50
+                    prose-th:border prose-th:border-gray-200 prose-th:px-3 prose-th:py-2 prose-th:text-left prose-th:font-semibold prose-th:text-gray-900
+                    prose-td:border prose-td:border-gray-200 prose-td:px-3 prose-td:py-2 prose-td:text-gray-700
+                    prose-tr:border-b prose-tr:border-gray-100
                     
                     /* Inline Code */
                     prose-code:text-blue-700 prose-code:bg-blue-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-medium prose-code:text-xs prose-code:before:content-none prose-code:after:content-none
@@ -210,7 +234,9 @@ const PackageDetail = ({ pkg, onClose }) => {
                     prose-li:text-gray-600 prose-li:marker:text-blue-500 prose-li:text-sm
                   ">
                     {pkg.readme ? (
-                      <ReactMarkdown>{pkg.readme}</ReactMarkdown>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
+                        {pkg.readme}
+                      </ReactMarkdown>
                     ) : (
                       <div className="flex flex-col items-center justify-center py-20 text-center">
                         <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4">

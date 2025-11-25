@@ -67,7 +67,7 @@ const About = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {/* Left Column - Widgets */}
           <motion.div 
             variants={containerVariants}
@@ -170,13 +170,13 @@ const About = () => {
             {/* Profile Strip */}
             <motion.div 
               variants={itemVariants}
-              className="bg-black rounded-2xl p-4 border border-gray-800 relative overflow-hidden group flex items-center"
+              className="bg-black rounded-2xl p-4 sm:p-6 border border-gray-800 relative overflow-hidden group flex items-center"
             >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+              <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 bg-blue-600/20 rounded-full blur-[60px] sm:blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
               
-              <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 text-center md:text-left w-full">
+              <div className="relative z-10 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center sm:text-left w-full">
                 <div className="relative shrink-0">
-                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-blue-500/30 shadow-lg shadow-blue-500/10">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-blue-500/30 shadow-lg shadow-blue-500/10">
                     <img 
                       src="hero.png" 
                       alt="Siddhant" 
@@ -185,8 +185,8 @@ const About = () => {
                   </div>
                 </div>
                 
-                <div>
-                  <p className="text-sm md:text-lg text-gray-300 font-light leading-relaxed font-display">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm sm:text-base lg:text-lg text-gray-300 font-light leading-relaxed font-display">
                     Hi, I'm <span className="text-blue-400 font-semibold">Siddhant</span> — a full stack developer building robust, scalable web apps.
                   </p>
                 </div>
@@ -196,15 +196,15 @@ const About = () => {
             {/* Detailed About Box */}
             <motion.div 
               variants={itemVariants}
-              className="bg-gray-50 rounded-2xl p-4 md:p-6 border border-gray-100 relative overflow-hidden group"
+              className="bg-gray-50 rounded-2xl p-4 sm:p-6 border border-gray-100 relative overflow-hidden group"
             >
               <div className="relative z-10">
-                <h3 className="text-xl font-bold text-black mb-4 font-display flex items-center gap-2">
-                  <span className="w-2 h-8 bg-blue-500 rounded-full inline-block"></span>
+                <h3 className="text-lg sm:text-xl font-bold text-black mb-3 sm:mb-4 font-display flex items-center gap-2">
+                  <span className="w-2 h-6 sm:h-8 bg-blue-500 rounded-full inline-block"></span>
                   Software Engineer • Web Architect
                 </h3>
                 
-                <div className="space-y-4 text-gray-600 leading-relaxed text-base">
+                <div className="space-y-3 sm:space-y-4 text-gray-600 leading-relaxed text-sm sm:text-base">
                   <p>
                     I'm a passionate Software Engineer who loves exploring, building, and problem-solving. With experience across full-stack development, I've created projects that are both impactful and innovative, ranging from web platforms to dashboards and interactive applications. My expertise spans React, Node.js, and building scalable web solutions, and I enjoy crafting clean, efficient, and maintainable code.
                   </p>
